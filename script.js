@@ -77,13 +77,13 @@ let currentSearchTerm = '';
 
 // Initialize App
 document.addEventListener('DOMContentLoaded', () => {
-    // Check for category in URL (e.g., coming from Category Cards on Index page)
+    // Check for category in URL
     const urlParams = new URLSearchParams(window.location.search);
     const categoryParam = urlParams.get('category');
 
     if (categoryParam) {
         currentCategory = categoryParam;
-        // Update Filter UI status
+        // Update UI if filters exist
         if (categoryFilters) {
             document.querySelectorAll('.btn-filter').forEach(btn => {
                 if (btn.dataset.category === categoryParam) {
@@ -140,7 +140,7 @@ function renderRecipes(recipesToRender) {
             recipeGrid.insertAdjacentHTML('beforeend', cardHTML);
         });
 
-        // Simple entrance animation
+        // Add a simple entrance animation
         setTimeout(() => {
             document.querySelectorAll('.hide-on-init').forEach((el, index) => {
                 el.style.animation = `fadeUp 0.5s ease forwards ${index * 0.1}s`;
@@ -149,7 +149,7 @@ function renderRecipes(recipesToRender) {
     }
 }
 
-// Set up event listeners for filters, search, and recipe form
+// Set up event listeners for filters, search, and form
 function setupEventListeners() {
     // Category Filtering
     if (categoryFilters) {
@@ -172,7 +172,7 @@ function setupEventListeners() {
         });
     }
 
-    // Add Recipe Form Handling
+    // Form Validation & Submission
     if (addRecipeForm && addRecipeModal) {
         addRecipeForm.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -204,7 +204,7 @@ function setupEventListeners() {
     }
 }
 
-// Filtering logic
+// Logic to filter recipes based on both category and search term
 function filterRecipes() {
     const filtered = recipes.filter(recipe => {
         const matchesCategory = currentCategory === 'All' || recipe.category === currentCategory;
@@ -216,7 +216,7 @@ function filterRecipes() {
     renderRecipes(filtered);
 }
 
-// Reset filters
+// Reset filters function
 function resetFilters() {
     if (searchInput) {
         searchInput.value = '';
@@ -233,7 +233,23 @@ function resetFilters() {
     renderRecipes(recipes);
 }
 
-// View Recipe Detail Logic
+// Add CSS keyframes for animation dynamically
+const style = document.createElement('style');
+style.innerHTML = `
+    .hide-on-init {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    @keyframes fadeUp {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+`;
+document.head.appendChild(style);
+
+// View Recipe Function
 function viewRecipe(id) {
     const recipe = recipes.find(r => r.id === id);
     if (!recipe) return;
@@ -274,19 +290,3 @@ function viewRecipe(id) {
         viewRecipeModal.show();
     }
 }
-
-// Inject Keyframes for Card Animations
-const style = document.createElement('style');
-style.innerHTML = `
-    .hide-on-init {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    @keyframes fadeUp {
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-`;
-document.head.appendChild(style);
