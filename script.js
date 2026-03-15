@@ -1,10 +1,10 @@
 // Sample Mock Data structure
-let recipes = [
+const initialRecipes = [
     {
         id: 1,
-        title: "Sri Lankan String Hoppers (Idiyappam)",
+        title: "String Hoppers",
         category: "Breakfast",
-        image: "https://images.unsplash.com/photo-1626074964585-f2ad58a74e2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        image: "assets/images/string hoppers.jpg",
         time: "45 min",
         difficulty: "Medium",
         ingredients: ["2 cups roasted rice flour", "Boiling water", "Salt", "Freshly grated coconut (for pol sambol)"],
@@ -22,9 +22,9 @@ let recipes = [
     },
     {
         id: 3,
-        title: "Creamy Dhal Curry (Parippu)",
+        title: "Dhal Curry",
         category: "Lunch",
-        image: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        image: "assets/images/dhal_curry.jpg",
         time: "20 min",
         difficulty: "Easy",
         ingredients: ["1 cup red lentils (Masoor dhal)", "1 cup thin coconut milk", "1/2 cup thick coconut milk", "Curry leaves & Pandan", "1/2 tsp turmeric powder", "1/2 tsp unroasted curry powder", "Garlic, green chilies"],
@@ -44,7 +44,7 @@ let recipes = [
         id: 5,
         title: "Chicken Lamprais",
         category: "Lunch",
-        image: "https://images.unsplash.com/photo-1594917409249-1667b9319e72?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        image: "assets/images/chicken_lamprais.jpg",
         time: "2 hrs",
         difficulty: "Hard",
         ingredients: ["Samba rice cooked in meat stock", "Mixed meat curry (Chicken/Pork/Beef)", "Fried ash plantains", "Brinjal moju (eggplant pickle)", "Seeni sambol", "Banana leaves for wrapping"],
@@ -52,15 +52,44 @@ let recipes = [
     },
     {
         id: 6,
-        title: "Watalappam (Coconut Custard)",
+        title: "Watalappam",
         category: "Dessert",
         image: "assets/images/watalappam.png",
         time: "1 hr",
         difficulty: "Medium",
         ingredients: ["500g Kithul Jaggery", "1 cup thick coconut milk", "5 large eggs", "Cardamom powder", "Nutmeg powder", "Cashew nuts"],
         instructions: ["Melt jaggery with a little water to form a thick syrup. Let cool.", "Beat eggs thoroughly.", "Mix the cooled jaggery syrup, coconut milk, and spices into the eggs.", "Pour into a heatproof bowl, top with cashews.", "Steam for 45 minutes until set. Serve chilled."]
+    },
+    {
+        id: 7,
+        title: "Pittu",
+        category: "Breakfast",
+        image: "assets/images/pittu.jpg",
+        time: "40 min",
+        difficulty: "Medium",
+        ingredients: ["2 cups roasted rice flour", "1 cup freshly grated coconut", "Salt to taste", "Water", "Warm coconut milk (for serving)"],
+        instructions: ["Mix roasted rice flour and salt in a bowl.", "Gradually sprinkle water and mix the flour to form small crumbly granules.", "Gently mix in the freshly grated coconut.", "Steam the mixture in a Pittu bamboo maker or steamer for 10-15 minutes.", "Push the steamed pittu out and serve hot with warm coconut milk, lunu miris, or meat curry."]
+    },
+
+    {
+        id: 8,
+        title: "Ceylon Crab Curry",
+        category: "Dinner",
+        image: "assets/images/crab_curry.png",
+        time: "1 hr 15 min",
+        difficulty: "Hard",
+        ingredients: ["1 kg mud crabs, cleaned and halved", "2 cups thick coconut milk", "3 tbsp roasted Sri Lankan curry powder", "2 tbsp chili powder (adjust to taste)", "1/2 tsp turmeric powder", "1 large onion, sliced", "Curry leaves and pandan leaf", "Ginger and garlic paste", "2 tbsp tamarind juice/paste", "Drumstick leaves (Murunga leaves) - optional"],
+        instructions: ["Marinate the cleaned crabs with turmeric, half the chili powder, and salt.", "Heat oil in a large clay pot. Fry onions, ginger-garlic paste, curry leaves, and pandan until aromatic.", "Add the roasted curry powder, remaining chili powder, and sauté for a minute to release flavors.", "Add the crab pieces and stir well to coat them in the spice mixture.", "Pour in the coconut milk and tamarind juice. Bring to a boil.", "Reduce heat and simmer until the crab is cooked and the gravy thickens (about 30-40 minutes).", "Add drumstick leaves in the last 5 minutes of cooking if using.", "Serve hot with roast paan (bread) or steamed rice."]
     }
+
 ];
+
+// Local Storage Initialization
+let recipes = JSON.parse(localStorage.getItem('cooklet_recipes')) || initialRecipes;
+
+function saveRecipes() {
+    localStorage.setItem('cooklet_recipes', JSON.stringify(recipes));
+}
 
 // DOM Elements - Check if they exist before using
 const recipeGrid = document.getElementById('recipeGrid');
@@ -125,7 +154,10 @@ function renderRecipes(recipesToRender) {
                     <div class="card recipe-card h-100" onclick="viewRecipe(${recipe.id})">
                         <div class="recipe-img-container">
                             <span class="recipe-category-badge">${recipe.category}</span>
-                            <img src="${recipe.image}" class="recipe-img" alt="${recipe.title}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1495521821757-a1efb6729352?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'">
+                            <button class="btn btn-danger position-absolute top-0 start-0 m-3 rounded-circle shadow-sm" onclick="deleteRecipe(event, ${recipe.id})" style="width: 35px; height: 35px; padding: 0; display: flex; align-items: center; justify-content: center; z-index: 10; background-color: rgba(220, 53, 69, 0.9); backdrop-filter: blur(4px); border: none;">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                            <img src="${recipe.image}" class="recipe-img" alt="${recipe.title}" loading="lazy" onerror="this.src='images/string hoppers.jpg'">
                         </div>
                         <div class="recipe-card-body">
                             <h3 class="recipe-title">${recipe.title}</h3>
@@ -199,6 +231,10 @@ function setupEventListeners() {
             addRecipeModal.hide();
             addRecipeForm.reset();
             addRecipeForm.classList.remove('was-validated');
+
+            // Save to local storage
+            saveRecipes();
+
             alert('Recipe added successfully!');
         });
     }
@@ -288,5 +324,23 @@ function viewRecipe(id) {
     if (viewRecipeModalElement) {
         const viewRecipeModal = bootstrap.Modal.getOrCreateInstance(viewRecipeModalElement);
         viewRecipeModal.show();
+    }
+}
+
+// Delete Recipe Logic
+function deleteRecipe(event, id) {
+    // Prevent the card's onclick (viewRecipe) from triggering
+    event.stopPropagation();
+    
+    // Confirm deletion
+    if (confirm("Are you sure you want to delete this recipe?")) {
+        // Remove recipe from array
+        recipes = recipes.filter(r => r.id !== id);
+
+        // Save to local storage
+        saveRecipes();
+        
+        // Re-apply current filters and re-render the grid
+        filterRecipes();
     }
 }
