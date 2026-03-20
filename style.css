@@ -276,6 +276,7 @@ h3,
     background-color: white;
 }
 
+.card,
 .modal-content {
     background-color: var(--bg-card);
     color: var(--text-dark);
@@ -299,6 +300,19 @@ h3,
     background-color: rgba(255, 255, 255, 0.1);
     border-color: var(--primary-color);
     color: #fff;
+}
+
+.form-floating > label {
+    color: var(--text-muted);
+}
+
+.form-floating > label::after {
+    background-color: transparent !important;
+}
+
+.form-select option {
+    background-color: var(--bg-card);
+    color: var(--text-dark);
 }
 
 .text-muted {

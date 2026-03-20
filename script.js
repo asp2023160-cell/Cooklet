@@ -2,7 +2,7 @@
 const initialRecipes = [
     {
         id: 1,
-        title: "String Hoppers",
+        title: "Sri Lankan String Hoppers (Idiyappam)",
         category: "Breakfast",
         image: "assets/images/string hoppers.jpg",
         time: "45 min",
@@ -22,9 +22,9 @@ const initialRecipes = [
     },
     {
         id: 3,
-        title: "Dhal Curry",
+        title: "Creamy Dhal Curry (Parippu)",
         category: "Lunch",
-        image: "assets/images/dhal_curry.jpg",
+        image: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
         time: "20 min",
         difficulty: "Easy",
         ingredients: ["1 cup red lentils (Masoor dhal)", "1 cup thin coconut milk", "1/2 cup thick coconut milk", "Curry leaves & Pandan", "1/2 tsp turmeric powder", "1/2 tsp unroasted curry powder", "Garlic, green chilies"],
@@ -44,7 +44,7 @@ const initialRecipes = [
         id: 5,
         title: "Chicken Lamprais",
         category: "Lunch",
-        image: "assets/images/chicken_lamprais.jpg",
+        image: "assets/images/Chicken_Lamprais.jpg",
         time: "2 hrs",
         difficulty: "Hard",
         ingredients: ["Samba rice cooked in meat stock", "Mixed meat curry (Chicken/Pork/Beef)", "Fried ash plantains", "Brinjal moju (eggplant pickle)", "Seeni sambol", "Banana leaves for wrapping"],
@@ -52,7 +52,7 @@ const initialRecipes = [
     },
     {
         id: 6,
-        title: "Watalappam",
+        title: "Watalappam (Coconut Custard)",
         category: "Dessert",
         image: "assets/images/watalappam.png",
         time: "1 hr",
@@ -70,7 +70,6 @@ const initialRecipes = [
         ingredients: ["2 cups roasted rice flour", "1 cup freshly grated coconut", "Salt to taste", "Water", "Warm coconut milk (for serving)"],
         instructions: ["Mix roasted rice flour and salt in a bowl.", "Gradually sprinkle water and mix the flour to form small crumbly granules.", "Gently mix in the freshly grated coconut.", "Steam the mixture in a Pittu bamboo maker or steamer for 10-15 minutes.", "Push the steamed pittu out and serve hot with warm coconut milk, lunu miris, or meat curry."]
     },
-
     {
         id: 8,
         title: "Ceylon Crab Curry",
@@ -80,12 +79,62 @@ const initialRecipes = [
         difficulty: "Hard",
         ingredients: ["1 kg mud crabs, cleaned and halved", "2 cups thick coconut milk", "3 tbsp roasted Sri Lankan curry powder", "2 tbsp chili powder (adjust to taste)", "1/2 tsp turmeric powder", "1 large onion, sliced", "Curry leaves and pandan leaf", "Ginger and garlic paste", "2 tbsp tamarind juice/paste", "Drumstick leaves (Murunga leaves) - optional"],
         instructions: ["Marinate the cleaned crabs with turmeric, half the chili powder, and salt.", "Heat oil in a large clay pot. Fry onions, ginger-garlic paste, curry leaves, and pandan until aromatic.", "Add the roasted curry powder, remaining chili powder, and sauté for a minute to release flavors.", "Add the crab pieces and stir well to coat them in the spice mixture.", "Pour in the coconut milk and tamarind juice. Bring to a boil.", "Reduce heat and simmer until the crab is cooked and the gravy thickens (about 30-40 minutes).", "Add drumstick leaves in the last 5 minutes of cooking if using.", "Serve hot with roast paan (bread) or steamed rice."]
+    },
+    {
+        id: 9,
+        title: "Marie Biscuit Pudding",
+        category: "Dessert",
+        image: "assets/images/Marie_Biscuit_Pudding.jpg",
+        time: "30 min",
+        difficulty: "Easy",
+        ingredients: ["1 packet Marie Biscuits", "1 cup strong brewed coffee (warm)", "1 cup butter (softened)", "1 cup icing sugar", "2 tbsp cocoa powder", "1 tsp vanilla extract", "Cashews for garnish"],
+        instructions: ["In a bowl, cream the softened butter and icing sugar until light and fluffy.", "Add the cocoa powder and vanilla extract to the butter mixture and beat well to create a chocolate buttercream.", "Dip the Marie biscuits quickly into the warm coffee (do not soak them).", "Arrange a layer of coffee-dipped biscuits in a glass dish.", "Spread a layer of the chocolate buttercream over the biscuits.", "Repeat the layers of dipped biscuits and buttercream, ending with a layer of buttercream on top.", "Garnish with crushed cashews or chocolate shavings. Chill in the refrigerator for at least 3-4 hours before serving."]
+    },
+    {
+        id: 10,
+        title: "Chocolate Lava Cake",
+        category: "Dessert",
+        image: "assets/images/Chocolate_Lava_Cake.jpg",
+        time: "25 min",
+        difficulty: "Medium",
+        ingredients: ["1/2 cup unsalted butter", "170g high-quality dark chocolate", "2 large eggs + 2 egg yolks", "1/4 cup sugar", "1 tsp vanilla extract", "2 tbsp all-purpose flour", "Pinch of salt"],
+        instructions: ["Preheat oven to 425°F (220°C). Butter four ramekins and dust with cocoa powder.", "Melt the butter and dark chocolate together in a microwave or double boiler until smooth. Let cool slightly.", "In a separate bowl, whisk the eggs, egg yolks, sugar, and vanilla until light and thick.", "Fold the melted chocolate mixture into the egg mixture.", "Gently fold in the flour and salt until just combined (do not overmix).", "Divide the batter evenly among the prepared ramekins.", "Bake for 12-14 minutes until the edges are firm but the center is still jiggly.", "Let cool for 1 minute, then invert onto a plate and serve immediately with vanilla ice cream."]
     }
-
 ];
 
 // Local Storage Initialization
-let recipes = JSON.parse(localStorage.getItem('cooklet_recipes')) || initialRecipes;
+let storedRecipes = JSON.parse(localStorage.getItem('cooklet_recipes'));
+let recipes = storedRecipes ? [...storedRecipes] : [...initialRecipes];
+
+// Ensure any new default recipes (like Crab Curry) are added to existing local storage
+if (storedRecipes) {
+    const storedTitles = storedRecipes.map(r => r.title);
+    let deletedTitles = JSON.parse(localStorage.getItem('cooklet_deleted_recipes')) || [];
+    const missingDefaults = initialRecipes.filter(r => !storedTitles.includes(r.title) && !deletedTitles.includes(r.title));
+    let needsSave = false;
+    if (missingDefaults.length > 0) {
+        // Assign new unique IDs to avoid conflicts
+        let maxId = Math.max(...recipes.map(r => r.id), 0);
+        missingDefaults.forEach(def => {
+            maxId++;
+            def.id = maxId;
+            recipes.push(def);
+        });
+        needsSave = true;
+    }
+
+    // Update existing default recipes if you changed their images in this file
+    recipes.forEach(r => {
+        const defaultMatch = initialRecipes.find(def => def.title === r.title);
+        if (defaultMatch && r.image !== defaultMatch.image) {
+            r.image = defaultMatch.image; // Overwrite cached image with updated code image
+            needsSave = true;
+        }
+    });
+    if (needsSave) {
+        localStorage.setItem('cooklet_recipes', JSON.stringify(recipes));
+    }
+}
 
 function saveRecipes() {
     localStorage.setItem('cooklet_recipes', JSON.stringify(recipes));
@@ -157,7 +206,7 @@ function renderRecipes(recipesToRender) {
                             <button class="btn btn-danger position-absolute top-0 start-0 m-3 rounded-circle shadow-sm" onclick="deleteRecipe(event, ${recipe.id})" style="width: 35px; height: 35px; padding: 0; display: flex; align-items: center; justify-content: center; z-index: 10; background-color: rgba(220, 53, 69, 0.9); backdrop-filter: blur(4px); border: none;">
                                 <i class="bi bi-trash"></i>
                             </button>
-                            <img src="${recipe.image}" class="recipe-img" alt="${recipe.title}" loading="lazy" onerror="this.src='images/string hoppers.jpg'">
+                            <img src="${recipe.image}" class="recipe-img" alt="${recipe.title}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1495521821757-a1efb6729352?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'">
                         </div>
                         <div class="recipe-card-body">
                             <h3 class="recipe-title">${recipe.title}</h3>
@@ -331,15 +380,26 @@ function viewRecipe(id) {
 function deleteRecipe(event, id) {
     // Prevent the card's onclick (viewRecipe) from triggering
     event.stopPropagation();
-    
+
     // Confirm deletion
     if (confirm("Are you sure you want to delete this recipe?")) {
+
+        // Remember the deleted title so it doesn't come back on refresh
+        const recipeToDelete = recipes.find(r => r.id === id);
+        if (recipeToDelete) {
+            let deletedTitles = JSON.parse(localStorage.getItem('cooklet_deleted_recipes')) || [];
+            if (!deletedTitles.includes(recipeToDelete.title)) {
+                deletedTitles.push(recipeToDelete.title);
+                localStorage.setItem('cooklet_deleted_recipes', JSON.stringify(deletedTitles));
+            }
+        }
+
         // Remove recipe from array
         recipes = recipes.filter(r => r.id !== id);
 
         // Save to local storage
         saveRecipes();
-        
+
         // Re-apply current filters and re-render the grid
         filterRecipes();
     }
