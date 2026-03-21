@@ -1,0 +1,357 @@
+// Sample Mock Data structure
+const initialRecipes = [
+    {
+        id: 1,
+        title: "Sri Lankan String Hoppers (Idiyappam)",
+        category: "Breakfast",
+        image: "images/string hoppers.jpg",
+        time: "45 min",
+        difficulty: "Medium",
+        ingredients: ["2 cups roasted rice flour", "Boiling water", "Salt", "Freshly grated coconut (for pol sambol)"],
+        instructions: ["Mix rice flour and salt.", "Gradually add boiling water until a soft, non-sticky dough forms.", "Press dough through a string hopper maker onto small mats.", "Steam for 5-7 minutes until cooked.", "Serve warm with Kiri Hodi and Pol Sambol."]
+    },
+    {
+        id: 2,
+        title: "Spicy Black Pork Curry",
+        category: "Dinner",
+        image: "images/pork_curry.png",
+        time: "50 min",
+        difficulty: "Medium",
+        ingredients: ["1 kg pork, cubed", "3 tbsp dark roasted curry powder", "Goraka (Malabar tamarind) paste", "Black pepper", "Curry leaves & Pandan (Rampe)", "Garlic & Ginger"],
+        instructions: ["Marinate pork with all spices, goraka, ginger and garlic.", "Heat oil, fry onions, curry leaves, and pandan.", "Add marinated pork and sear until browned.", "Add water to cover and slow cook until meat is tender and gravy is dark and thick.", "Serve with rice or roast paan."]
+    },
+    {
+        id: 3,
+        title: "Creamy Dhal Curry (Parippu)",
+        category: "Lunch",
+        image: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        time: "20 min",
+        difficulty: "Easy",
+        ingredients: ["1 cup red lentils (Masoor dhal)", "1 cup thin coconut milk", "1/2 cup thick coconut milk", "Curry leaves & Pandan", "1/2 tsp turmeric powder", "1/2 tsp unroasted curry powder", "Garlic, green chilies"],
+        instructions: ["Wash dhal thoroughly.", "Boil dhal with spices, aromatics, and thin coconut milk until soft.", "Stir in thick coconut milk and simmer for 2 minutes.", "Optional: temper with mustard seeds, dried chilies, and curry leaves.", "Serve with rice or bread."]
+    },
+    {
+        id: 4,
+        title: "Kiribath (Milk Rice) with Lunu Miris",
+        category: "Breakfast",
+        image: "images/kiribath.png",
+        time: "30 min",
+        difficulty: "Easy",
+        ingredients: ["2 cups white raw rice (Kekulu haal)", "2 cups thick coconut milk", "Water", "Salt", "For Lunu Miris: Red onions, Maldive fish, Chili powder, Lime juice"],
+        instructions: ["Boil the rice with water until soft and slightly mushy.", "Add salt to coconut milk, stir into the cooked rice.", "Cook on low heat until the milk is absorbed and rice is creamy.", "Transfer to a flat plate, flatten it, and cut into diamond shapes.", "Grind Lunu Miris ingredients together and serve alongside."]
+    },
+    {
+        id: 5,
+        title: "Chicken Lamprais",
+        category: "Lunch",
+        image: "images/Chicken_Lamprais.jpg",
+        time: "2 hrs",
+        difficulty: "Hard",
+        ingredients: ["Samba rice cooked in meat stock", "Mixed meat curry (Chicken/Pork/Beef)", "Fried ash plantains", "Brinjal moju (eggplant pickle)", "Seeni sambol", "Banana leaves for wrapping"],
+        instructions: ["Prepare all individual components: stock rice, meat curry, plantains, moju, and sambol.", "Wilt banana leaves over an open flame.", "Place a scoop of rice in the center of the leaf.", "Arrange all curries and sambols around the rice.", "Fold the leaf into a parcel, tie it, and bake at 350°F (175°C) for 20 minutes before serving."]
+    },
+    {
+        id: 6,
+        title: "Watalappam (Coconut Custard)",
+        category: "Dessert",
+        image: "images/watalappam.png",
+        time: "1 hr",
+        difficulty: "Medium",
+        ingredients: ["500g Kithul Jaggery", "1 cup thick coconut milk", "5 large eggs", "Cardamom powder", "Nutmeg powder", "Cashew nuts"],
+        instructions: ["Melt jaggery with a little water to form a thick syrup. Let cool.", "Beat eggs thoroughly.", "Mix the cooled jaggery syrup, coconut milk, and spices into the eggs.", "Pour into a heatproof bowl, top with cashews.", "Steam for 45 minutes until set. Serve chilled."]
+    },
+    {
+        id: 7,
+        title: "Pittu",
+        category: "Breakfast",
+        image: "images/pittu.jpg",
+        time: "40 min",
+        difficulty: "Medium",
+        ingredients: ["2 cups roasted rice flour", "1 cup freshly grated coconut", "Salt to taste", "Water", "Warm coconut milk (for serving)"],
+        instructions: ["Mix roasted rice flour and salt in a bowl.", "Gradually sprinkle water and mix the flour to form small crumbly granules.", "Gently mix in the freshly grated coconut.", "Steam the mixture in a Pittu bamboo maker or steamer for 10-15 minutes.", "Push the steamed pittu out and serve hot with warm coconut milk, lunu miris, or meat curry."]
+    },
+    {
+        id: 8,
+        title: "Ceylon Crab Curry",
+        category: "Dinner",
+        image: "images/crab_curry.png",
+        time: "1 hr 15 min",
+        difficulty: "Hard",
+        ingredients: ["1 kg mud crabs, cleaned and halved", "2 cups thick coconut milk", "3 tbsp roasted Sri Lankan curry powder", "2 tbsp chili powder (adjust to taste)", "1/2 tsp turmeric powder", "1 large onion, sliced", "Curry leaves and pandan leaf", "Ginger and garlic paste", "2 tbsp tamarind juice/paste", "Drumstick leaves (Murunga leaves) - optional"],
+        instructions: ["Marinate the cleaned crabs with turmeric, half the chili powder, and salt.", "Heat oil in a large clay pot. Fry onions, ginger-garlic paste, curry leaves, and pandan until aromatic.", "Add the roasted curry powder, remaining chili powder, and sauté for a minute to release flavors.", "Add the crab pieces and stir well to coat them in the spice mixture.", "Pour in the coconut milk and tamarind juice. Bring to a boil.", "Reduce heat and simmer until the crab is cooked and the gravy thickens (about 30-40 minutes).", "Add drumstick leaves in the last 5 minutes of cooking if using.", "Serve hot with roast paan (bread) or steamed rice."]
+    },
+    {
+        id: 9,
+        title: "Marie Biscuit Pudding",
+        category: "Dessert",
+        image: "images/Marie_Biscuit_Pudding.jpg",
+        time: "30 min",
+        difficulty: "Easy",
+        ingredients: ["1 packet Marie Biscuits", "1 cup strong brewed coffee (warm)", "1 cup butter (softened)", "1 cup icing sugar", "2 tbsp cocoa powder", "1 tsp vanilla extract", "Cashews for garnish"],
+        instructions: ["In a bowl, cream the softened butter and icing sugar until light and fluffy.", "Add the cocoa powder and vanilla extract to the butter mixture and beat well to create a chocolate buttercream.", "Dip the Marie biscuits quickly into the warm coffee (do not soak them).", "Arrange a layer of coffee-dipped biscuits in a glass dish.", "Spread a layer of the chocolate buttercream over the biscuits.", "Repeat the layers of dipped biscuits and buttercream, ending with a layer of buttercream on top.", "Garnish with crushed cashews or chocolate shavings. Chill in the refrigerator for at least 3-4 hours before serving."]
+    },
+    {
+        id: 10,
+        title: "Chocolate Lava Cake",
+        category: "Dessert",
+        image: "images/Chocolate_Lava_Cake.jpg",
+        time: "25 min",
+        difficulty: "Medium",
+        ingredients: ["1/2 cup unsalted butter", "170g high-quality dark chocolate", "2 large eggs + 2 egg yolks", "1/4 cup sugar", "1 tsp vanilla extract", "2 tbsp all-purpose flour", "Pinch of salt"],
+        instructions: ["Preheat oven to 425°F (220°C). Butter four ramekins and dust with cocoa powder.", "Melt the butter and dark chocolate together in a microwave or double boiler until smooth. Let cool slightly.", "In a separate bowl, whisk the eggs, egg yolks, sugar, and vanilla until light and thick.", "Fold the melted chocolate mixture into the egg mixture.", "Gently fold in the flour and salt until just combined (do not overmix).", "Divide the batter evenly among the prepared ramekins.", "Bake for 12-14 minutes until the edges are firm but the center is still jiggly.", "Let cool for 1 minute, then invert onto a plate and serve immediately with vanilla ice cream."]
+    }
+];
+
+// Initialization (Merge DB with local legacy)
+let dbRecipes = typeof window.phpRecipes !== 'undefined' ? window.phpRecipes : [];
+let storedRecipes = JSON.parse(localStorage.getItem('cooklet_recipes'));
+let baseRecipes = storedRecipes ? storedRecipes : initialRecipes;
+
+let recipes = [...dbRecipes];
+
+// Add legacy recipes that aren't in the DB yet
+baseRecipes.forEach(br => {
+    if (!recipes.find(r => r.title === br.title)) {
+        recipes.push(br);
+    }
+});
+
+function saveRecipes() {
+    // Only save legacy ones, DB is handled by PHP now
+    localStorage.setItem('cooklet_recipes', JSON.stringify(recipes.filter(r => typeof r.id === 'number')));
+}
+
+// DOM Elements - Check if they exist before using
+const recipeGrid = document.getElementById('recipeGrid');
+const searchInput = document.getElementById('searchInput');
+const categoryFilters = document.getElementById('category-filters');
+const emptyState = document.getElementById('emptyState');
+const addRecipeForm = document.getElementById('addRecipeForm');
+const addRecipeModalElement = document.getElementById('addRecipeModal');
+const addRecipeModal = addRecipeModalElement ? new bootstrap.Modal(addRecipeModalElement) : null;
+
+// Current State
+let currentCategory = 'All';
+let currentSearchTerm = '';
+
+// Initialize App
+document.addEventListener('DOMContentLoaded', () => {
+    // Check for category in URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const categoryParam = urlParams.get('category');
+
+    if (categoryParam) {
+        currentCategory = categoryParam;
+        // Update UI if filters exist
+        if (categoryFilters) {
+            document.querySelectorAll('.btn-filter').forEach(btn => {
+                if (btn.dataset.category === categoryParam) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+        }
+    }
+
+    if (recipeGrid) {
+        renderRecipes(recipes);
+    }
+    setupEventListeners();
+});
+
+// Render Recipes Function
+function renderRecipes(recipesToRender) {
+    if (!recipeGrid) return;
+
+    recipeGrid.innerHTML = '';
+
+    if (recipesToRender.length === 0) {
+        if (emptyState) emptyState.classList.remove('d-none');
+    } else {
+        if (emptyState) emptyState.classList.add('d-none');
+
+        const recipesToFilter = currentCategory === 'All' ?
+            recipesToRender :
+            recipesToRender.filter(r => r.category === currentCategory);
+
+        recipesToFilter.forEach(recipe => {
+            const timeInfo = recipe.time || '30 min';
+            const difficultyInfo = recipe.difficulty || 'Medium';
+
+            const cardHTML = `
+                <div class="col-12 col-md-6 col-lg-4 hide-on-init">
+                    <div class="card recipe-card h-100" onclick="viewRecipe(${recipe.id})">
+                        <div class="recipe-img-container">
+                            <span class="recipe-category-badge">${recipe.category}</span>
+                            <button class="btn btn-danger position-absolute top-0 start-0 m-3 rounded-circle shadow-sm" onclick="deleteRecipe(event, ${recipe.id})" style="width: 35px; height: 35px; padding: 0; display: flex; align-items: center; justify-content: center; z-index: 10; background-color: rgba(220, 53, 69, 0.9); backdrop-filter: blur(4px); border: none;">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                            <img src="${recipe.image}" class="recipe-img" alt="${recipe.title}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1495521821757-a1efb6729352?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'">
+                        </div>
+                        <div class="recipe-card-body">
+                            <h3 class="recipe-title">${recipe.title}</h3>
+                            <div class="recipe-meta mt-auto">
+                                <span><i class="bi bi-clock me-1 text-primary"></i> ${timeInfo}</span>
+                                <span><i class="bi bi-bar-chart me-1 text-primary"></i> ${difficultyInfo}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            recipeGrid.insertAdjacentHTML('beforeend', cardHTML);
+        });
+
+        // Add a simple entrance animation
+        setTimeout(() => {
+            document.querySelectorAll('.hide-on-init').forEach((el, index) => {
+                el.style.animation = `fadeUp 0.5s ease forwards ${index * 0.1}s`;
+            });
+        }, 10);
+    }
+}
+
+// Set up event listeners for filters, search, and form
+function setupEventListeners() {
+    // Category Filtering
+    if (categoryFilters) {
+        categoryFilters.addEventListener('click', (e) => {
+            if (e.target.classList.contains('btn-filter')) {
+                document.querySelectorAll('.btn-filter').forEach(btn => btn.classList.remove('active'));
+                e.target.classList.add('active');
+
+                currentCategory = e.target.dataset.category;
+                filterRecipes();
+            }
+        });
+    }
+
+    // Search Filtering
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            currentSearchTerm = e.target.value.toLowerCase();
+            filterRecipes();
+        });
+    }
+
+    // Form Validation (Submission handled by PHP now!)
+    if (addRecipeForm && addRecipeModal) {
+        addRecipeForm.addEventListener('submit', (e) => {
+            if (!addRecipeForm.checkValidity()) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+            addRecipeForm.classList.add('was-validated');
+        });
+    }
+}
+
+// Logic to filter recipes based on both category and search term
+function filterRecipes() {
+    const filtered = recipes.filter(recipe => {
+        const matchesCategory = currentCategory === 'All' || recipe.category === currentCategory;
+        const matchesSearch = recipe.title.toLowerCase().includes(currentSearchTerm) ||
+            recipe.ingredients.some(i => i.toLowerCase().includes(currentSearchTerm));
+        return matchesCategory && matchesSearch;
+    });
+
+    renderRecipes(filtered);
+}
+
+// Reset filters function
+function resetFilters() {
+    if (searchInput) {
+        searchInput.value = '';
+        currentSearchTerm = '';
+    }
+
+    if (categoryFilters) {
+        document.querySelectorAll('.btn-filter').forEach(btn => btn.classList.remove('active'));
+        const allBtn = document.querySelector('[data-category="All"]');
+        if (allBtn) allBtn.classList.add('active');
+        currentCategory = 'All';
+    }
+
+    renderRecipes(recipes);
+}
+
+// Add CSS keyframes for animation dynamically
+const style = document.createElement('style');
+style.innerHTML = `
+    .hide-on-init {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    @keyframes fadeUp {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+`;
+document.head.appendChild(style);
+
+// View Recipe Function
+function viewRecipe(id) {
+    const recipe = recipes.find(r => r.id === id);
+    if (!recipe) return;
+
+    const modalTitle = document.getElementById('viewRecipeTitle');
+    const modalImage = document.getElementById('viewRecipeImage');
+    const modalMeta = document.getElementById('viewRecipeMeta');
+    const ingredientsList = document.getElementById('viewRecipeIngredients');
+    const instructionsList = document.getElementById('viewRecipeInstructions');
+
+    if (modalTitle) modalTitle.textContent = recipe.title;
+    if (modalImage) modalImage.src = recipe.image;
+    if (modalMeta) {
+        modalMeta.innerHTML = `
+            <span class="badge bg-primary rounded-pill me-2">${recipe.category}</span>
+            <span class="me-3"><i class="bi bi-clock me-1 text-muted"></i> ${recipe.time || '30 min'}</span>
+            <span><i class="bi bi-bar-chart me-1 text-muted"></i> ${recipe.difficulty || 'Medium'}</span>
+        `;
+    }
+
+    if (ingredientsList) {
+        ingredientsList.innerHTML = '';
+        recipe.ingredients.forEach(ing => {
+            ingredientsList.insertAdjacentHTML('beforeend', `<li class="mb-2"><i class="bi bi-check2-circle text-primary me-2"></i>${ing}</li>`);
+        });
+    }
+
+    if (instructionsList) {
+        instructionsList.innerHTML = '';
+        recipe.instructions.forEach((inst, index) => {
+            instructionsList.insertAdjacentHTML('beforeend', `<li class="mb-3 d-flex"><span class="badge bg-light text-primary border border-primary me-3 align-self-start mt-1">${index + 1}</span> <span>${inst}</span></li>`);
+        });
+    }
+
+    const viewRecipeModalElement = document.getElementById('viewRecipeModal');
+    if (viewRecipeModalElement) {
+        const viewRecipeModal = bootstrap.Modal.getOrCreateInstance(viewRecipeModalElement);
+        viewRecipeModal.show();
+    }
+}
+
+// Delete Recipe Logic
+function deleteRecipe(event, id) {
+    event.stopPropagation();
+    if (confirm("Are you sure you want to delete this recipe?")) {
+        if (typeof id === 'string' || id > 100) {
+            window.location.href = "delete_recipe.php?id=${id}";
+            return;
+        }
+        const recipeToDelete = recipes.find(r => r.id === id);
+        if (recipeToDelete) {
+            let deletedTitles = JSON.parse(localStorage.getItem('cooklet_deleted_recipes')) || [];
+            if (!deletedTitles.includes(recipeToDelete.title)) {
+                deletedTitles.push(recipeToDelete.title);
+                localStorage.setItem('cooklet_deleted_recipes', JSON.stringify(deletedTitles));
+            }
+        }
+        recipes = recipes.filter(r => r.id !== id);
+        saveRecipes();
+        filterRecipes();
+    }
+}
+
